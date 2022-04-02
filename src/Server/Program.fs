@@ -1,4 +1,5 @@
-﻿open System.IO
+﻿open System
+open System.IO
 
 open Suave
 open Suave.Filters
@@ -28,8 +29,8 @@ let main argv =
     let args =
         let parse f str = match f str with (true, i) -> Some i | _ -> None
 
-        let (|Port|_|) = parse System.UInt16.TryParse
-        let (|IPAddress|_|) = parse System.Net.IPAddress.TryParse
+        let (|Port|_|) = parse (System.UInt16.TryParse: string -> bool * uint16)
+        let (|IPAddress|_|) = parse (System.Net.IPAddress.TryParse: string -> bool * System.Net.IPAddress)
 
         //default bind to 127.0.0.1:8083
         let defaultArgs = {

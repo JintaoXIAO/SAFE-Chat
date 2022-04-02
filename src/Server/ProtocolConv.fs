@@ -8,7 +8,7 @@ open ChatServer
 open FsChat
 
 let (|IsChannelId|_|) = 
-    Int32.TryParse >> function
+    (Int32.TryParse: string -> bool * int32) >> function
     | true, value -> Some (ChannelId value)
     | _ -> None
 
